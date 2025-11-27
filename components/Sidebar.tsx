@@ -7,12 +7,12 @@ export default function Sidebar() {
 
   const menuItems = [
     { name: "Pre-TGE Arena", active: true },
-    { name: "Info Markets Arena" },
     { name: "Project Leaderboards" },
-    { name: "Trading Rewards" },
+    { name: "Project Summary" },
+    { name: "X Posts" },
+    { name: "Dashboard" },
     { name: "Airdrops" },
     { name: "My Wallet" },
-    { name: "Connected Accounts" },
     { name: "Social Card" },
     { name: "FAQ" },
   ];
