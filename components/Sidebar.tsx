@@ -20,7 +20,7 @@ export default function Sidebar() {
   return (
     <aside className="w-64 bg-black text-white min-h-screen p-6 flex flex-col">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold">KAITO</h1>
+        <h1 className="text-2xl font-bold">Shitfilter</h1>
       </div>
       
       <nav className="flex-1 space-y-1">

@@ -3,6 +3,11 @@
 import { useState } from "react";
 
 type LeaderboardData = {
+  userId: string;
+  userHandle: string | null;
+  userDisplayName: string | null;
+  userWallet: string | null;
+  userAvatarUrl: string | null;
   projectId: string;
   projectSlug: string;
   projectName: string;
@@ -57,15 +62,17 @@ export default function LeaderboardCards({
     displayData = sortedData.slice(50, 100);
   }
 
-  // 간단한 라인 그래프 데이터 생성 (예시)
+  // 간단한 라인 그래프 데이터 생성
   const generateLineData = (share: number) => {
     const points = 10;
-    const base = share * 0.8;
-    const variation = share * 0.4;
-    return Array.from({ length: points }, (_, i) => ({
-      x: i,
-      y: base + (Math.sin(i) * variation) / 2,
-    }));
+    const maxValue = Math.max(share, 1); // 0으로 나누기 방지
+    return Array.from({ length: points }, (_, i) => {
+      const x = (i / (points - 1)) * 100; // 0-100%
+      // 부드러운 곡선 생성
+      const noise = Math.sin((i / points) * Math.PI * 2) * 0.1;
+      const y = Math.max(10, Math.min(90, 50 + (share / maxValue) * 30 + noise * 20));
+      return { x, y };
+    });
   };
 
   return (
@@ -132,18 +139,31 @@ export default function LeaderboardCards({
           const isPositive = item.currentSharePercent > 0;
           const bgColor = isPositive ? "bg-green-600/20" : "bg-red-600/20";
           const borderColor = isPositive ? "border-green-500" : "border-red-500";
+          const displayName = item.userDisplayName || item.userHandle || "Unknown";
+          const displayInitial = displayName.charAt(0).toUpperCase();
 
           return (
             <div
-              key={item.projectId}
+              key={`${item.userId}-${item.projectId}`}
               className={`${bgColor} ${borderColor} border rounded-lg p-4 relative overflow-hidden`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold">
-                    {item.rank}
+                  {item.userAvatarUrl ? (
+                    <img
+                      src={item.userAvatarUrl}
+                      alt={displayName}
+                      className="w-6 h-6 rounded-full"
+                    />
+                  ) : (
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold">
+                      {displayInitial}
+                    </div>
+                  )}
+                  <div className="flex flex-col">
+                    <span className="font-semibold text-sm">{displayName}</span>
+                    <span className="text-xs text-gray-400">{item.projectName}</span>
                   </div>
-                  <span className="font-semibold text-sm">{item.projectName}</span>
                 </div>
                 <span className="text-sm font-bold">
                   {item.currentSharePercent.toFixed(2)}%
@@ -152,14 +172,14 @@ export default function LeaderboardCards({
 
               {/* 간단한 라인 그래프 */}
               <div className="h-12 w-full mt-2 relative">
-                <svg width="100%" height="100%" className="overflow-visible">
+                <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" className="overflow-visible">
                   <polyline
-                    points={lineData
-                      .map((d, i) => `${(i / (lineData.length - 1)) * 100},${100 - (d.y / Math.max(...lineData.map(l => l.y))) * 100}`)
-                      .join(" ")}
+                    points={lineData.map((d) => `${d.x},${100 - d.y}`).join(" ")}
                     fill="none"
                     stroke={isPositive ? "#10b981" : "#ef4444"}
-                    strokeWidth="2"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </div>

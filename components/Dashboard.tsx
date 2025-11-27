@@ -5,6 +5,11 @@ import TopGainerTable from "./TopGainerTable";
 import LeaderboardCards from "./LeaderboardCards";
 
 type LeaderboardData = {
+  userId: string;
+  userHandle: string | null;
+  userDisplayName: string | null;
+  userWallet: string | null;
+  userAvatarUrl: string | null;
   projectId: string;
   projectSlug: string;
   projectName: string;
@@ -20,20 +25,32 @@ type LeaderboardData = {
 export default function Dashboard() {
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardData[]>([]);
   const [timeRange, setTimeRange] = useState<string>("all");
+  const [selectedProject, setSelectedProject] = useState<string>("all");
+  const [availableProjects, setAvailableProjects] = useState<{ slug: string; name: string }[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchLeaderboard();
-  }, [timeRange]);
+  }, [timeRange, selectedProject]);
 
   const fetchLeaderboard = async () => {
     try {
       setLoading(true);
       const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
-      const response = await fetch(`${backendUrl}/api/leaderboard?timeRange=${timeRange}`);
+      let url = `${backendUrl}/api/leaderboard?timeRange=${timeRange}`;
+      if (selectedProject !== "all") {
+        url += `&projectSlug=${selectedProject}`;
+      }
+      const response = await fetch(url);
       if (!response.ok) throw new Error("Failed to fetch leaderboard");
       const data = await response.json();
       setLeaderboardData(data);
+      
+      // 프로젝트 목록 추출 (중복 제거)
+      const projects = Array.from(
+        new Map(data.map((item: LeaderboardData) => [item.projectSlug, { slug: item.projectSlug, name: item.projectName }])).values()
+      );
+      setAvailableProjects(projects);
     } catch (error) {
       console.error("Error fetching leaderboard:", error);
     } finally {
@@ -53,8 +70,20 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold mb-4">Pre-TGE Mindshare Arena</h2>
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-2xl font-bold">Pre-TGE Mindshare Arena</h2>
+        <select
+          value={selectedProject}
+          onChange={(e) => setSelectedProject(e.target.value)}
+          className="bg-gray-800 text-white px-4 py-2 rounded-lg border border-gray-700 hover:bg-gray-700 transition-colors"
+        >
+          <option value="all">All Projects</option>
+          {availableProjects.map((project) => (
+            <option key={project.slug} value={project.slug}>
+              {project.name}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -73,4 +102,11 @@ export default function Dashboard() {
     </div>
   );
 }
+
+
+
+
+
+
+
 

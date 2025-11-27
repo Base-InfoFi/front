@@ -1,6 +1,11 @@
 "use client";
 
 type LeaderboardData = {
+  userId: string;
+  userHandle: string | null;
+  userDisplayName: string | null;
+  userWallet: string | null;
+  userAvatarUrl: string | null;
   projectId: string;
   projectSlug: string;
   projectName: string;
@@ -54,19 +59,33 @@ export default function TopGainerTable({ data, loading }: Props) {
             </tr>
           </thead>
           <tbody>
-            {sortedData.slice(0, 10).map((item, index) => (
-              <tr
-                key={item.projectId}
-                className="border-b border-gray-700 hover:bg-gray-700/50 transition-colors"
-              >
-                <td className="py-3 px-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold">
-                      {item.projectName.charAt(0)}
+            {sortedData.slice(0, 10).map((item, index) => {
+              const displayName = item.userDisplayName || item.userHandle || "Unknown";
+              const displayInitial = displayName.charAt(0).toUpperCase();
+              return (
+                <tr
+                  key={`${item.userId}-${item.projectId}`}
+                  className="border-b border-gray-700 hover:bg-gray-700/50 transition-colors"
+                >
+                  <td className="py-3 px-4">
+                    <div className="flex items-center gap-3">
+                      {item.userAvatarUrl ? (
+                        <img
+                          src={item.userAvatarUrl}
+                          alt={displayName}
+                          className="w-8 h-8 rounded-full"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold">
+                          {displayInitial}
+                        </div>
+                      )}
+                      <div className="flex flex-col">
+                        <span className="font-medium">{displayName}</span>
+                        <span className="text-xs text-gray-400">{item.projectName}</span>
+                      </div>
                     </div>
-                    <span className="font-medium">{item.projectName}</span>
-                  </div>
-                </td>
+                  </td>
                 <td className="text-right py-3 px-4 font-semibold">
                   {item.currentSharePercent.toFixed(2)}%
                 </td>
@@ -77,11 +96,19 @@ export default function TopGainerTable({ data, loading }: Props) {
                   ▲{item.deltaRel.toFixed(0)}%
                 </td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>
     </div>
   );
 }
+
+
+
+
+
+
+
 
