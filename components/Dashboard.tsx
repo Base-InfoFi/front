@@ -26,7 +26,9 @@ export default function Dashboard() {
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardData[]>([]);
   const [timeRange, setTimeRange] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState<string>("all");
-  const [availableProjects, setAvailableProjects] = useState<{ slug: string; name: string }[]>([]);
+  const [availableProjects, setAvailableProjects] = useState<
+    { slug: string; name: string }[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,7 +38,8 @@ export default function Dashboard() {
   const fetchLeaderboard = async () => {
     try {
       setLoading(true);
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
+      const backendUrl =
+        process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000";
       let url = `${backendUrl}/api/leaderboard?timeRange=${timeRange}`;
       if (selectedProject !== "all") {
         url += `&projectSlug=${selectedProject}`;
@@ -45,11 +48,16 @@ export default function Dashboard() {
       if (!response.ok) throw new Error("Failed to fetch leaderboard");
       const data = await response.json();
       setLeaderboardData(data);
-      
+
       // 프로젝트 목록 추출 (중복 제거)
-      const projects = Array.from(
-        new Map(data.map((item: LeaderboardData) => [item.projectSlug, { slug: item.projectSlug, name: item.projectName }])).values()
+      const projectMap = new Map<string, { slug: string; name: string }>(
+        data.map((item: LeaderboardData) => [
+          item.projectSlug,
+          { slug: item.projectSlug, name: item.projectName },
+        ])
       );
+
+      const projects = Array.from(projectMap.values());
       setAvailableProjects(projects);
     } catch (error) {
       console.error("Error fetching leaderboard:", error);
@@ -91,8 +99,8 @@ export default function Dashboard() {
           <TopGainerTable data={leaderboardData} loading={loading} />
         </div>
         <div>
-          <LeaderboardCards 
-            data={leaderboardData} 
+          <LeaderboardCards
+            data={leaderboardData}
             loading={loading}
             timeRange={timeRange}
             onTimeRangeChange={setTimeRange}
@@ -102,11 +110,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
