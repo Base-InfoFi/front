@@ -2,10 +2,9 @@ const ROOT_URL = process.env.NEXT_PUBLIC_ROOT_URL || "https://shitfilter.vercel.
 
 export const minikitConfig = {
   accountAssociation: {
-    // Step 4에서 Base Build Account association tool을 통해 생성된 값으로 업데이트 필요
-    "header": "",
-    "payload": "",
-    "signature": ""
+    "header": "eyJmaWQiOjE0MzA5MjMsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhhRTc5ZDFhMTBhZWVBZmRlNjY0YTU0NjJGZTVEQzZEOUViNjRCMkM1In0",
+    "payload": "eyJkb21haW4iOiJzaGl0ZmlsdGVyLnZlcmNlbC5hcHAifQ",
+    "signature": "hpofU2Ci+rE45N99ZjN5Nsk5DImKXyLb9BA2IUk3705OOO2N3WBZSArrYsRD3K5ARDiDxzxSbQiwtWrnkBC01Bw="
   },
   baseBuilder: {
     "ownerAddress": "0xAbA994EF395486771F84cE99e59a24ab8EE3CE30"
