@@ -12,6 +12,8 @@ export async function GET() {
       description: minikitConfig.miniapp.description,
       screenshotUrls: minikitConfig.miniapp.screenshotUrls,
       iconUrl: minikitConfig.miniapp.iconUrl,
+      imageUrl: minikitConfig.miniapp.imageUrl,
+      buttonTitle: minikitConfig.miniapp.buttonTitle,
       splashImageUrl: minikitConfig.miniapp.splashImageUrl,
       splashBackgroundColor: minikitConfig.miniapp.splashBackgroundColor,
       homeUrl: minikitConfig.miniapp.homeUrl,

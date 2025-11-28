@@ -17,6 +17,8 @@ export const minikitConfig = {
     description: "Building the future of Web3. Pre-TGE Arena에서 프로젝트에 대한 글을 평가하고 리더보드를 확인하세요.",
     screenshotUrls: [`${ROOT_URL}/screenshot-portrait.png`],
     iconUrl: `${ROOT_URL}/icon.png`,
+    imageUrl: `${ROOT_URL}/icon.png`, // 필수 필드 추가
+    buttonTitle: "Open SHITFILTER", // 필수 필드 추가
     splashImageUrl: `${ROOT_URL}/splash.png`,
     splashBackgroundColor: "#111827", // gray-900
     homeUrl: ROOT_URL,
@@ -25,7 +27,7 @@ export const minikitConfig = {
     tags: ["leaderboard", "web3", "pre-tge", "arena", "social"],
     heroImageUrl: `${ROOT_URL}/hero.png`,
     tagline: "Building the future of Web3",
-    ogTitle: "SHITFILTER - Pre-TGE Mindshare Arena",
+    ogTitle: "SHITFILTER", // 30자 이하로 수정
     ogDescription: "Pre-TGE Arena에서 프로젝트에 대한 글을 평가하고 리더보드를 확인하세요.",
     ogImageUrl: `${ROOT_URL}/og-image.png`,
   },
