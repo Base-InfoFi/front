@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { useWallet } from "@/contexts/WalletContext";
 
-export default function Sidebar() {
+interface SidebarProps {
+  onNavigate?: () => void;
+}
+
+export default function Sidebar({ onNavigate }: SidebarProps) {
   const { userInfo } = useWallet();
 
   const menuItems = [
@@ -23,7 +27,7 @@ export default function Sidebar() {
 
       <nav className="flex-1 space-y-1">
         {menuItems.map((item) => (
-          <Link key={item.name} href={item.path}>
+          <Link key={item.name} href={item.path} onClick={onNavigate}>
             <div
               className={`px-4 py-2 rounded-md cursor-pointer transition-colors
               text-gray-400 hover:text-white hover:bg-gray-800`}
