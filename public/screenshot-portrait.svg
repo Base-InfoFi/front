@@ -1,0 +1,15 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="1920" fill="#111827"/>
+  <rect x="40" y="100" width="1000" height="200" rx="20" fill="#1f2937"/>
+  <text x="540" y="220" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#ffffff" text-anchor="middle">SHITFILTER</text>
+  <rect x="40" y="350" width="1000" height="1200" rx="20" fill="#1f2937"/>
+  <text x="540" y="500" font-family="Arial, sans-serif" font-size="50" fill="#9ca3af" text-anchor="middle">Pre-TGE Arena</text>
+  <text x="540" y="600" font-family="Arial, sans-serif" font-size="40" fill="#6b7280" text-anchor="middle">Leaderboard</text>
+  <rect x="100" y="700" width="880" height="80" rx="10" fill="#374151"/>
+  <rect x="100" y="820" width="880" height="80" rx="10" fill="#374151"/>
+  <rect x="100" y="940" width="880" height="80" rx="10" fill="#374151"/>
+  <rect x="100" y="1060" width="880" height="80" rx="10" fill="#374151"/>
+  <rect x="100" y="1180" width="880" height="80" rx="10" fill="#374151"/>
+  <text x="540" y="1700" font-family="Arial, sans-serif" font-size="35" fill="#9ca3af" text-anchor="middle">Building the future of Web3</text>
+</svg>
+
