@@ -3,14 +3,26 @@
 import { useBaseApp } from "@/contexts/BaseAppContext";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const { isInBaseApp } = useBaseApp();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  // 화면 크기로 모바일 감지 (추가 체크)
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
-  // Base 앱 내에서 실행될 때는 모바일 친화적인 레이아웃
-  if (isInBaseApp) {
+  // Base 앱 내에서 실행될 때 또는 모바일 크기일 때는 모바일 친화적인 레이아웃
+  if (isInBaseApp || isMobile) {
     return (
       <div className="min-h-screen bg-gray-900 text-white">
         {/* 모바일 헤더 */}
