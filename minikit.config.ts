@@ -23,7 +23,7 @@ export const minikitConfig = {
     homeUrl: ROOT_URL,
     webhookUrl: `${ROOT_URL}/api/webhook`,
     primaryCategory: "social",
-    tags: ["leaderboard", "web3", "pretge", "arena", "social"],
+    tags: ["leaderboard", "webthree", "pretge", "arena", "social"],
     heroImageUrl: `${ROOT_URL}/hero.png`,
     tagline: "Building the future of Web3",
     ogTitle: "SHITFILTER", // 30자 이하로 수정
