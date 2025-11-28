@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { minikitConfig } from "../../../minikit.config";
 
+import { NextResponse } from "next/server";
+import { minikitConfig } from "../../../minikit.config";
+
 export async function GET() {
   const manifest: any = {
-    accountAssociation: minikitConfig.accountAssociation,
     miniapp: {
       version: minikitConfig.miniapp.version,
       name: minikitConfig.miniapp.name,
@@ -24,6 +26,16 @@ export async function GET() {
       ogImageUrl: minikitConfig.miniapp.ogImageUrl,
     },
   };
+
+  // accountAssociation이 설정되어 있으면 추가 (빈 문자열이 아닐 때만)
+  const hasAccountAssociation = 
+    minikitConfig.accountAssociation.header &&
+    minikitConfig.accountAssociation.payload &&
+    minikitConfig.accountAssociation.signature;
+  
+  if (hasAccountAssociation) {
+    manifest.accountAssociation = minikitConfig.accountAssociation;
+  }
 
   // baseBuilder 필드가 설정되어 있으면 추가
   if (minikitConfig.baseBuilder.ownerAddress) {
