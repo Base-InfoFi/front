@@ -1,7 +1,12 @@
 "use client";
 
 import { WalletProvider } from "@/contexts/WalletContext";
+import { GlobalStateProvider } from "@/contexts/GlobalStateContext";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <WalletProvider>{children}</WalletProvider>;
+  return (
+    <GlobalStateProvider>
+      <WalletProvider>{children}</WalletProvider>
+    </GlobalStateProvider>
+  );
 }
