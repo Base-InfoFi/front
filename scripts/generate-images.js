@@ -31,3 +31,4 @@ console.log('옵션 3: Node.js 스크립트 (sharp 라이브러리 필요)');
 console.log('  npm install sharp');
 console.log('  node scripts/convert-svg-to-png.js');
 
+
