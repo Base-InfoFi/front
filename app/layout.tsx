@@ -2,6 +2,33 @@ import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import { Providers } from "./provider";
+import type { Metadata } from "next";
+import { minikitConfig } from "../minikit.config";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const miniapp = minikitConfig.miniapp;
+  
+  return {
+    title: miniapp.name,
+    description: miniapp.description,
+    other: {
+      "fc:miniapp": JSON.stringify({
+        version: miniapp.version,
+        imageUrl: miniapp.heroImageUrl,
+        button: {
+          title: miniapp.buttonTitle,
+          action: {
+            type: "launch_frame",
+            url: miniapp.homeUrl,
+            name: miniapp.name,
+            splashImageUrl: miniapp.splashImageUrl,
+            splashBackgroundColor: miniapp.splashBackgroundColor,
+          },
+        },
+      }),
+    },
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
