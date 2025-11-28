@@ -13,7 +13,7 @@ export const minikitConfig = {
     version: "1",
     name: "SHITFILTER",
     subtitle: "Pre-TGE Mindshare Arena",
-    description: "Building the future of Web3. Pre-TGE Arena에서 프로젝트에 대한 글을 평가하고 리더보드를 확인하세요.",
+    description: "Building the future of Web3. Pre-TGE Arena for evaluating posts and checking leaderboards.",
     screenshotUrls: [`${ROOT_URL}/screenshot-portrait.png`],
     iconUrl: `${ROOT_URL}/icon.png`,
     imageUrl: `${ROOT_URL}/icon.png`, // 필수 필드 추가
