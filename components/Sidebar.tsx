@@ -8,15 +8,11 @@ export default function Sidebar() {
 
   const menuItems = [
     { name: "Pre-TGE Arena", path: "/" },
-    { name: "Project Leaderboards", path: "/leaderboards" },
-    { name: "Project Summary", path: "/summary" },
     { name: "Vote", path: "/vote" },
-    { name: "X Posts", path: "/posts" },
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "Airdrops", path: "/airdrops" },
-    { name: "My Wallet", path: "/wallet" },
-    { name: "Social Card", path: "/social-card" },
-    { name: "FAQ", path: "/faq" },
+    { name: "Flock LLM", path: "/flock-llm" },
+    { name: "Search on X", path: "/search" },
+    { name: "Scoring", path: "/scoring" },
+    { name: "Result", path: "/result" },
   ];
 
   return (
